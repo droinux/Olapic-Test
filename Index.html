@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <title>Olapic</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    
+ <style type="text/css">
+	@import "Style.css";
+ </style>
+  
+<script type="text/javascript">
+    var olapicAPIPhotoRank = "https://photorankapi-a.akamaihd.net/customers/215757/media/PhotoRank?auth_token=0a40a13fd9d531110b4d6515ef0d6c529acdb59e81194132356a1b8903790c18&version=v2.2";
+	var olapicAPI = "https://photorankapi-a.akamaihd.net/customers/215757/media/recent?auth_token=0a40a13fd9d531110b4d6515ef0d6c529acdb59e81194132356a1b8903790c18&version=v2.2";
+	var apiImages = [];
+	var apiImages2 = [];
+	var container;
+	
+	<!-- API Call Recent-->
+	$.getJSON( olapicAPI, function(apiResults){
+		for(var i = 0; i < 6; i++){
+			apiImages.push(apiResults.data._embedded.media[i].images.normal);
+			container = "#item"+i;
+			$( "<img>" ).attr( "src", apiImages[i]).appendTo( container );
+			$( "<img>" ).attr( "src", apiImages[i]).appendTo( "#slide2" );
+		}
+	});
+	
+	<!-- API Call PhotoRank -->
+	$.getJSON( olapicAPIPhotoRank, function(apiResults2){
+		for(var i = 0; i < 2; i++){
+			apiImages2.push(apiResults2.data._embedded.media[i].images.normal);
+			$( "<img>" ).attr( "src", apiImages2[i]).appendTo( "#inner" );
+			$( "<img>" ).attr( "src", apiImages[2-i]).appendTo( "#slide1" );
+		}
+	});
+</script>
+  
+
+</head>
+<body>
+ 
+ <!-- Parallax Start-->
+ <div id="title" class="slide header">
+  <h1>Olapic</h1>
+</div>
+
+<div id="slide1" class="slide">
+  <div class="title"></div>
+</div>
+
+<div id="slide2" class="slide">
+  <div class="title"></div>
+</div>
+<!--  Parallax End -->
+
+<!-- PhotoRank Images --> 
+<div id="outer" class="outer" style="width:100%">  
+  <div id="inner" class="inner"></div>
+</div>
+
+<!-- Img Carousel Start -->
+  <div id="olapicCarousel" class="carousel slide" data-ride="carousel">
+ 
+ <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#olapicCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#olapicCarousel" data-slide-to="1"></li>
+    <li data-target="#olapicCarousel" data-slide-to="2"></li>
+    <li data-target="#olapicCarousel" data-slide-to="3"></li>
+	<li data-target="#olapicCarousel" data-slide-to="4"></li>
+	<li data-target="#olapicCarousel" data-slide-to="5"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div id="item0" class="item active"></div>
+	<div id="item1" class="item"></div>
+    <div id="item2" class="item"></div>
+    <div id="item3" class="item"></div>
+    <div id="item4" class="item"></div>
+	<div id="item5" class="item"></div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#olapicCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#olapicCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<!-- Img Carousel End -->	 
+
+</body>
+</html>
